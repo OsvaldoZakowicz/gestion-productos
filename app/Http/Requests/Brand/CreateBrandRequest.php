@@ -25,4 +25,21 @@ class CreateBrandRequest extends FormRequest
             'brand_name' => 'required|unique:brands|string|max:255',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'brand_name' => 'nombre de marca',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'brand_name.required' => 'El :attribute es requerido',
+            'brand_name.unique'   => 'Ya existe un :attribute con el mismo nombre',
+            'brand_name.string'   => 'El :attribute debe ser de tipo texto',
+            'brand_name.max'      => 'El :attribute debe ser de hasta :max caracteres',
+        ];
+    }
 }

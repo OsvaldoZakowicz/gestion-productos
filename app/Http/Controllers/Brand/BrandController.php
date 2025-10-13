@@ -7,6 +7,7 @@ use App\Services\BrandService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\CreateBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
+use Illuminate\Http\RedirectResponse;
 
 class BrandController extends Controller
 {
@@ -34,7 +35,7 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateBrandRequest $request)
+    public function store(CreateBrandRequest $request): RedirectResponse
     {
         $new_brand = $this->brand_service->createBrand($request->validated());
 
@@ -62,7 +63,7 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBrandRequest $request, int $id)
+    public function update(UpdateBrandRequest $request, int $id): RedirectResponse
     {
         $this->brand_service->updateBrand($id, $request->validated());
 

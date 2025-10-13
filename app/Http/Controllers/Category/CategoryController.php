@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Services\CategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -34,7 +35,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(CreateCategoryRequest $request): RedirectResponse
     {
         $new_category = $this->category_service->createCategory($request->validated());
 
@@ -62,7 +63,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, int $id)
+    public function update(UpdateCategoryRequest $request, int $id): RedirectResponse
     {
         $this->category_service->updateCategory($id, $request->validated());
 
