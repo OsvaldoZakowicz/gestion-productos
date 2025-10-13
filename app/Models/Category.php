@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-     // tamaño de paginacion
+    use HasFactory;
+    
+    // tamaño de paginacion
     public const PAGINATE = 10;
 
     // atributos asignables
