@@ -3,17 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
+    use HasFactory;
+
     // tamaño de paginacion
     public const PAGINATE = 10;
-    
+
     // atributos asignables
     protected $fillable = [
         'product_name',
         'product_desc',
+        'sku',          // codigo unico
+        'barcode',
+        'price',        // precio de lista
+        'cost',         // precio de costo
+        'tax_rate',     // porcentaje de impuestos
+        'is_active',
+        'brand_id',
+        'category_id'
     ];
 
     /**

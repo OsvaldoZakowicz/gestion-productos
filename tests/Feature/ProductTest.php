@@ -9,6 +9,8 @@ use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Existe el modelo Product
      */
@@ -42,7 +44,15 @@ class ProductTest extends TestCase
         // atributos que el modelo Product puede asignar masivamente
         $expected_fillable = [
             'product_name',
-            'product_desc'
+            'product_desc',
+            'sku',
+            'barcode',
+            'price',
+            'cost',
+            'tax_rate',
+            'is_active',
+            'brand_id',
+            'category_id'
         ];
 
         $this->assertEquals(
@@ -62,6 +72,14 @@ class ProductTest extends TestCase
             'id',
             'product_name',
             'product_desc',
+            'sku',
+            'barcode',
+            'price',
+            'cost',
+            'tax_rate',
+            'is_active',
+            'brand_id',
+            'category_id',
             'created_at',
             'updated_at'
         ];
