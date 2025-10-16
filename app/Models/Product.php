@@ -10,6 +10,9 @@ class Product extends Model
 {
     use HasFactory;
 
+    // impueto de producto
+    public const float TAX = 0.21;
+
     // tamaño de paginacion
     public const PAGINATE = 10;
 

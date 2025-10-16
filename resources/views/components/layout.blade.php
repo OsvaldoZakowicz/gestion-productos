@@ -17,6 +17,7 @@
             <ul>
                 <li><a href="{{ route('brands.index') }}">marcas</a></li>
                 <li><a href="{{ route('categories.index') }}">categorias</a></li>
+                <li><a href="{{ route('products.index') }}">productos</a></li>
             </ul>
         </nav>
     </header>

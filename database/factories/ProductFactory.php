@@ -32,6 +32,8 @@ class ProductFactory extends Factory
             'cost'          => $this->faker->randomFloat(2, 100, 5000),         
             'tax_rate'      => 0.21,  
             'is_active'     => true,
+            'brand_id'      => null,
+            'category_id'   => null,
         ];
     }
 
@@ -65,6 +67,19 @@ class ProductFactory extends Factory
             'barcode'       => $barcode,
             'price'         => $price,        
             'cost'          => $cost,
+            'brand_id'      => $brand->id,
+            'category_id'   => $category->id,
+        ]);
+    }
+
+    /**
+     * Agregar marca y categoria
+     * @param App\Models\Brand $brand
+     * @param App\Models\Category $category
+     */
+    public function withBrandAndCategory(Brand $brand, Category $category): static
+    {
+        return $this->state(fn (array $attributes) => [
             'brand_id'      => $brand->id,
             'category_id'   => $category->id,
         ]);
