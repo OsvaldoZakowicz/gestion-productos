@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -69,11 +70,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateProductRequest $request, int $id)
     {
-        // todo: editar producto
-        // servicio
-        // request
+        $this->product_service->updateProduct($request->validated(), $id);
+
+        return redirect()->route('products.index')->with('message', 'producto actualizado!');
     }
 
     /**
@@ -81,6 +82,8 @@ class ProductController extends Controller
      */
     public function destroy(int $id)
     {
-        //
+        $this->product_service->deleteProduct($id);
+
+        return redirect()->route('products.index')->with('message', 'producto eliminado!');
     }
 }

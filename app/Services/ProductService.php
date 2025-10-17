@@ -69,4 +69,25 @@ class ProductService
             'category_id'   => $data['category_id']
         ]);
     }
+
+    /**
+     * Actualizar un producto
+     * @param array $data datos validados
+     * @param int $product_id id de producto
+     * @return bool
+     */
+    public function updateProduct(array $data, int $product_id): bool
+    {
+        return Product::where('id', $product_id)->update($data);
+    }
+
+    /**
+     * Eliminar producto
+     * @param int $product_id id de producto
+     * @return bool
+     */
+    public function deleteProduct(int $product_id): bool
+    {
+        return Product::where('id', $product_id)->delete();
+    }
 }

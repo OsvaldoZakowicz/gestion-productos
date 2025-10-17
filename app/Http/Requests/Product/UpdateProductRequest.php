@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CreateProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +23,21 @@ class CreateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_name'  => 'required|string|unique:products,product_name|max:255',
+            'product_name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('products', 'product_name')
+                    ->ignore($this->route('product')),
+            ],
+            'sku' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('products', 'sku')
+                    ->ignore($this->route('product')),
+            ],
             'product_desc'  => 'nullable|string|max:255',
-            'sku'           => 'required|string|unique:products,sku|max:100',
             'barcode'       => 'required|string|max:100',
             'price'         => 'required|numeric|min:0',
             'cost'          => 'required|numeric|min:0',
@@ -51,8 +64,8 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'product_name.required'    => 'El :attribute es obligatorio',
-            'product_name.string'      => 'El :attribute debe ser texto',
             'product_name.unique'      => 'El :attribute ya está registrado',
+            'product_name.string'      => 'El :attribute debe ser texto',
             'product_name.max'         => 'El :attribute no debe exceder los 255 caracteres',
             
             'product_desc.string'      => 'La :attribute debe ser texto',
