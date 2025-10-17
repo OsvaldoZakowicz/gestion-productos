@@ -40,6 +40,16 @@ class ProductService
     }
 
     /**
+     * Obtener un producto
+     * @param int $id de producto
+     * @return App\Models\Product
+     */
+    public function getProduct(int $id): Product
+    {
+        return Product::findOrFail($id);
+    }
+
+    /**
      * Crear un producto
      * @param array $data datos validados
      * @return App\Models\Product

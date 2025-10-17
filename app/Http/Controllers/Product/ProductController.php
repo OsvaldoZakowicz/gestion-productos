@@ -31,8 +31,9 @@ class ProductController extends Controller
     {
         $brands = $this->product_service->getBrandsForProduct();
         $categories = $this->product_service->getCategoriesForProduct();
+        $product = new Product(); // variable producto vacia
 
-        return view('product.form', compact('brands', 'categories'));
+        return view('product.form', compact('brands', 'categories', 'product'));
     }
 
     /**
@@ -48,7 +49,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(int $id)
     {
         //
     }
@@ -56,15 +57,19 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(int $id)
     {
-        //
+        $brands = $this->product_service->getBrandsForProduct();
+        $categories = $this->product_service->getCategoriesForProduct();
+        $product = $this->product_service->getProduct($id);
+
+        return view('product.form', compact('brands', 'categories', 'product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, int $id)
     {
         // todo: editar producto
         // servicio
@@ -74,7 +79,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(int $id)
     {
         //
     }
