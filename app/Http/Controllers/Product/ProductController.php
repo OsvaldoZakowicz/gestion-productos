@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
+use App\Services\MessageService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class ProductController extends Controller
 {
     public function __construct(
         protected ProductService $product_service,
+        protected MessageService $message_service
     ) {}
 
     /**
@@ -44,7 +46,10 @@ class ProductController extends Controller
     {
         $new_product = $this->product_service->createProduct($request->validated());
 
-        return redirect()->route('products.index')->with('message', 'producto: ' . $new_product->product_name . ' creado!');
+        return redirect()->route('products.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_created')
+        );
     }
 
     /**
@@ -74,7 +79,10 @@ class ProductController extends Controller
     {
         $this->product_service->updateProduct($request->validated(), $id);
 
-        return redirect()->route('products.index')->with('message', 'producto actualizado!');
+        return redirect()->route('products.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_edited')
+        );
     }
 
     /**
@@ -84,6 +92,9 @@ class ProductController extends Controller
     {
         $this->product_service->deleteProduct($id);
 
-        return redirect()->route('products.index')->with('message', 'producto eliminado!');
+        return redirect()->route('products.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_deleted')
+        );
     }
 }
