@@ -33,7 +33,7 @@ abstract class BaseException extends Exception
      * Indica la clave que se usara para el
      * mensaje de sesion.
      */
-    protected string $session_key = 'exception';
+    public const string SESSION_KEY = 'exception';
 
     /**
      * * Constructor.
@@ -57,7 +57,7 @@ abstract class BaseException extends Exception
     {
         return redirect()
             ->route($this->redirect_route)
-            ->with($this->session_key, $this->getMessage());
+            ->with($this::SESSION_KEY, $this->getMessage());
     }
 
     /**
