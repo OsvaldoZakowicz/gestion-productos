@@ -1,6 +1,11 @@
 <x-layout>
     <div class="row m-4">
         <div class="col-12">
+
+            @if (session('exception'))
+                <div class="alert alert-info my-2">{{ session('exception') }}</div>
+            @endif
+
             @if (session('message'))
                 <div class="alert alert-secondary my-2">{{ session('message') }}</div>
             @endif
