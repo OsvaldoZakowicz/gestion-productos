@@ -7,12 +7,16 @@ use App\Services\BrandService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\CreateBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
+use App\Services\MessageService;
 use Illuminate\Http\RedirectResponse;
 
 class BrandController extends Controller
 {
 
-    public function __construct(protected BrandService $brand_service) {}
+    public function __construct(
+        protected BrandService $brand_service,
+        protected MessageService $message_service
+    ) {}
 
     /**
      * Display a listing of the resource.
@@ -37,9 +41,12 @@ class BrandController extends Controller
      */
     public function store(CreateBrandRequest $request): RedirectResponse
     {
-        $new_brand = $this->brand_service->createBrand($request->validated());
+        $this->brand_service->createBrand($request->validated());
 
-        return redirect()->route('brands.index')->with('message', 'marca: ' . $new_brand->brand_name . ' creada!');
+        return redirect()->route('brands.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_created')
+        );
     }
 
     /**
@@ -67,7 +74,10 @@ class BrandController extends Controller
     {
         $this->brand_service->updateBrand($id, $request->validated());
 
-        return redirect()->route('brands.index')->with('message', 'marca actualizada!');
+        return redirect()->route('brands.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_updated')
+        );
     }
 
     /**
@@ -77,6 +87,9 @@ class BrandController extends Controller
     {
         $this->brand_service->deleteBrand($id);
 
-        return redirect()->route('brands.index')->with('message', 'marca eliminada!');
+        return redirect()->route('brands.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_deleted')
+        );
     }
 }

@@ -7,11 +7,15 @@ use App\Models\Category;
 use App\Services\CategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Services\MessageService;
 use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $category_service) {}
+    public function __construct(
+        protected CategoryService $category_service,
+        protected MessageService $message_service   
+    ) {}
 
     /**
      * Display a listing of the resource.
@@ -39,7 +43,10 @@ class CategoryController extends Controller
     {
         $new_category = $this->category_service->createCategory($request->validated());
 
-        return redirect()->route('categories.index')->with('message', 'categoria: ' . $new_category->category_name . ' creada!');
+        return redirect()->route('categories.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_created')
+        );
     }
 
     /**
@@ -67,7 +74,10 @@ class CategoryController extends Controller
     {
         $this->category_service->updateCategory($id, $request->validated());
 
-        return redirect()->route('categories.index')->with('message', 'categoria actualizada!');
+        return redirect()->route('categories.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_updated')
+        );
     }
 
     /**
@@ -77,6 +87,9 @@ class CategoryController extends Controller
     {
         $this->category_service->deleteCategory($id);
 
-        return redirect()->route('categories.index')->with('message', 'categoria eliminada!');
+        return redirect()->route('categories.index')->with(
+            MessageService::SESSION_KEY,
+            $this->message_service->get('resource_deleted')
+        );
     }
 }

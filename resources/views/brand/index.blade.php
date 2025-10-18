@@ -2,12 +2,16 @@
     <div class="row m-4">
         <div class="col-12">
 
-            @if (session('exception'))
-                <div class="alert alert-info my-2">{{ session('exception') }}</div>
+            @if (session(\App\Exceptions\BaseException::SESSION_KEY))
+                <div class="alert alert-info my-2">
+                    {{ session(\App\Exceptions\BaseException::SESSION_KEY) }}
+                </div>
             @endif
 
-            @if (session('message'))
-                <div class="alert alert-secondary my-2">{{ session('message') }}</div>
+            @if (session(\App\Services\MessageService::SESSION_KEY))
+                <div class="alert alert-secondary my-2">
+                    {{ session(\App\Services\MessageService::SESSION_KEY) }}
+                </div>
             @endif
 
             <a href="{{ route('brands.create') }}" class="btn btn-primary">Nueva Marca</a>
