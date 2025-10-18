@@ -28,6 +28,7 @@ class BrandService
      * crear una nueva marca de producto
      * @param array $data parametros de la nueva marca validados
      * @return \App\Models\Brand
+     * @throws DatabaseTransactionException
      */
     public function createBrand(array $data): Brand
     {
@@ -67,6 +68,7 @@ class BrandService
      * @param int $brand_id brand
      * @param array $data parametros de la nueva marca validados
      * @return bool
+     * @throws DatabaseTransactionException
      */
     public function updateBrand(int $brand_id, array $data): bool
     {
@@ -93,6 +95,8 @@ class BrandService
      * eliminar una marca
      * @param int $brand_id brand
      * @return bool
+     * @throws DatabaseTransactionException
+     * @throws BrandAlreadyInUseException
      */
     public function deleteBrand(int $brand_id): bool
     {
